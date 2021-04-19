@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
@@ -124,7 +125,7 @@ namespace TestRender
 
 
 
-            int scz = 200;
+            int scz = 400;
 
             System.IO.FileStream file = new System.IO.FileStream(
                 @"c:\users\user\desktop\комп графика\testrender\cow.obj",
@@ -161,9 +162,9 @@ namespace TestRender
                     auxline = auxline.Replace("v ", "");
                     auxline = auxline.Replace("\r", "");
                     string[] points = auxline.Split(' ');
-                    double x = double.Parse(points[0]);
-                    double y = double.Parse(points[1]);
-                    double z = double.Parse(points[2]);
+                    double x = double.Parse(points[0], CultureInfo.InvariantCulture);
+                    double y = double.Parse(points[1], CultureInfo.InvariantCulture);
+                    double z = double.Parse(points[2], CultureInfo.InvariantCulture);
                     pointArrayX.Add(x);
                     pointArrayY.Add(y);
                     pointArrayZ.Add(z);
@@ -172,10 +173,11 @@ namespace TestRender
                         if (auxline[0] == 'f')
                 {
                     auxline = auxline.Replace("f ", "");
+                    auxline = auxline.Replace("//"," ");
                     string[] vertices = auxline.Split(' ');
                     int a = int.Parse(vertices[0]) - 1;
-                    int b = int.Parse(vertices[1]) - 1;
-                    int c = int.Parse(vertices[2]) - 1;
+                    int b = int.Parse(vertices[2]) - 1;
+                    int c = int.Parse(vertices[4]) - 1;
 
                     tTriangle tri1 = new tTriangle();
                     tri1.tp1x = (double)pointArrayX[a];
@@ -229,11 +231,11 @@ namespace TestRender
             Graphics graphics = g;
 
             double px = 0.0;
-            double py = 0.0;
-            double pz = 600.0;
+            double py = -50.0;
+            double pz = 50.0;
 
-            double lpx = 1.5;
-            double lpy = 1.7;
+            double lpx = 1.0;
+            double lpy = 1.0;
             double lpz = 500.0;
 
             double lp2x = lpx;
