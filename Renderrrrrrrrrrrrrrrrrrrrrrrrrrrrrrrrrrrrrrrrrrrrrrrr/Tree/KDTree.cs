@@ -12,19 +12,17 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Tree
     {
       
 
-        public KdTree(Triangle[] triangles) 
-        {
-            var Xmin = float.MaxValue;
-            var Ymin = float.MaxValue;
-            var Zmin = float.MaxValue;
-            var Xmax = float.MinValue;
-            var Ymax = float.MinValue;
-            var Zmax = float.MinValue;
-
-            
+        //public KdTree(Triangle[] triangles) 
+        //{
+        //    var Xmin = float.MaxValue;
+        //    var Ymin = float.MaxValue;
+        //    var Zmin = float.MaxValue;
+        //    var Xmax = float.MinValue;
+        //    var Ymax = float.MinValue;
+        //    var Zmax = float.MinValue;          
 
            
-        }
+        //}
 
     }
 

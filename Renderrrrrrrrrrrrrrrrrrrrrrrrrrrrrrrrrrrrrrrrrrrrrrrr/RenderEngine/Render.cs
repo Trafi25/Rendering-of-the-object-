@@ -70,9 +70,45 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
                         vNormal = vNormal.Norm();
 
                         double cost=GetCosAngle(l2p,vNormal);
+
+                        if (cost < 0) cost = 0;
+
+                        Vector3 vEye2Inters = Inters - camera.GetCameraPosition();
+
+                        Vector3 vRefl = Reflect(l2p,vNormal);
+
+                        vRefl = vRefl.Norm();
+                        vEye2Inters = vEye2Inters.Norm();
+
+                        double cosf = GetCosAngle(vRefl,vEye2Inters);
+
+                        if (cosf < 0)
+                            cosf = 0;
+
+                        double result1 = cost * 255.0;
+
+                        double rgbR = (triangleHit.RGB.X * 255)+(0.3775*result1);
+                        double rgbG = (triangleHit.RGB.Y * 255) + (0.3775 * result1);
+                        double rgbB = (triangleHit.RGB.Z * 255) + (0.5775 * result1);
+
+                        rgbR = Math.Min(rgbR, 255);
+                        rgbG = Math.Min(rgbG, 255);
+                        rgbB = Math.Min(rgbB, 255);
+                        rgbR = Math.Max(rgbR, 0);
+                        rgbG = Math.Max(rgbG, 0);
+                        rgbB = Math.Max(rgbB, 0);
+
+                        color = Color.FromArgb((int)rgbR, (int)rgbG, (int)rgbB);
                     }
+
+                    Brush brs = new SolidBrush(color);
+                    graphics.FillRectangle(brs, i, j, 1, 1);
+                    brs.Dispose();
                 }
+
             }
+
+            newBitmap.Save(outputPath, ImageFormat.Png);
         }
 
         private float GetCoord(float i1, float i2, float w1,
@@ -107,6 +143,16 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
 
             if (Math.Abs(d) < 1.0E-10) return 0;
             return n / d;
+        }
+
+        private Vector3 Reflect(Vector3 light,Vector3 normal)
+        {
+            var vx = light.X - (2.0 * normal.X * light.DotProduct(normal));
+            var vy = light.Y - (2.0 * normal.Y * light.DotProduct(normal));
+            var vz = light.Z - (2.0 * normal.Z * light.DotProduct(normal));
+            Vector3 v = new Vector3((float)vx, (float)vy, (float)vz);
+            v = v.Norm();
+            return v;
         }
     }
 }
