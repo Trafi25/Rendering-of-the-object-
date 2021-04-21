@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Reander.Interfaces
+namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Interfaces
 {
     interface IReader
     {
