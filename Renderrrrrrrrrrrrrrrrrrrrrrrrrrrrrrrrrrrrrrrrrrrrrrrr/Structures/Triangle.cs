@@ -19,11 +19,18 @@ namespace Reander.Structures
             this.a = a;
             this.b = b;
             this.c = c;
+            GetNormal();
         }
 
         public void GetNormal()
-        {
-
+        {            
+            Vector3 temp = c - a;
+            Vector3 temp1 = b - a;
+                        
+            var vx = temp1.Z*temp.Y-temp1.Y*temp.Z;
+            var vy = temp1.X * temp.Z - temp1.Z * temp.X;
+            var vz = temp1.Y * temp.X - temp1.X * temp.Y;
+            Normal = new Vector3(vx, vy, vz);
         }
     }
 }
