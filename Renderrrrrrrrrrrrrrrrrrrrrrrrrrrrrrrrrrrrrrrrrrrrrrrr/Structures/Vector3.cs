@@ -56,12 +56,5 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Structures
             return this.X * other.X + this.Y * other.Y + this.Z * other.Z;
         }
 
-        public void modv()
-        {
-            double mod_v = Math.Sqrt(X*X+Y*Y+Z*Z);
-            X = (float)(X / mod_v);
-            Y = (float)(Y / mod_v);
-            Z = (float)(Z / mod_v);
-        }
     }
 }
