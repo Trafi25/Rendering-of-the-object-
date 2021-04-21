@@ -36,6 +36,11 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Structures
             return new Vector3(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
         }
 
+        public static Vector3 operator *(double ind, Vector3 right)
+        {
+            return new Vector3((float)ind*right.X, (float)ind * right.Y, (float)ind * right.Z);
+        }
+
         public Vector3 CrossProduct(Vector3 edge2)
         {
             var u = this;
@@ -49,6 +54,14 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Structures
         public float DotProduct(Vector3 other)
         {
             return this.X * other.X + this.Y * other.Y + this.Z * other.Z;
+        }
+
+        public void modv()
+        {
+            double mod_v = Math.Sqrt(X*X+Y*Y+Z*Z);
+            X = (float)(X / mod_v);
+            Y = (float)(Y / mod_v);
+            Z = (float)(Z / mod_v);
         }
     }
 }

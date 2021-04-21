@@ -1,4 +1,5 @@
 ﻿using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Interfaces;
+using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Structures;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -31,27 +32,47 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
 
             Graphics graphics = g;
 
-            double Scale = 1.0;
+            float Scale = 1.0f;
 
             for (int i = rect.Left; i <= rect.Right; i++)
             {
-                double x = GetCoord(rect.Left,
+                float x = GetCoord(rect.Left,
                     rect.Right, -Scale, Scale, i);
                 for (int j = rect.Top; j <= rect.Bottom; j++)
                 {
-                    double y = GetCoord(rect.Top,
+                    float y = GetCoord(rect.Top,
                         rect.Bottom, Scale, -Scale, j);
                     double t = 1.0E10;
 
+                    Vector3 v = new Vector3(x, y, 0)-camera.GetCameraPosition();
 
+                    v.modv();
+
+                    Triangle triangleHit = null;
+                    for (int k = 0; k < (int)Triangles.Count; k++)
+                    {
+                        Triangle triN = (Triangle)Triangles[k];
+                        double taux = triN.GetInterSect(camera.GetCameraPosition(), new Vector3(x,y,0));
+                        if (taux < 0) continue;
+
+                        if (taux > 0 && taux < t)
+                        {
+                            t = taux;
+                            triangleHit = triN;
+                        }
+                    }
+
+                    Color color = Color.FromArgb(10, 20, 10);
                 }
             }
         }
 
-        private double GetCoord(double i1, double i2, double w1,
-            double w2, double p)
+        private float GetCoord(float i1, float i2, float w1,
+            float w2, float p)
         {
             return ((p - i1) / (i2 - i1)) * (w2 - w1) + w1;
         }
+
+        
     }
 }
