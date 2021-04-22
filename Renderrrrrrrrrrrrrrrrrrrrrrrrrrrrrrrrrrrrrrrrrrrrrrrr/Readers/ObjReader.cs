@@ -47,12 +47,20 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Readers
                         if (auxline[0] == 'f')
                 {
                     auxline = auxline.Replace("f ", "");
-                    auxline = auxline.Replace("//", " ");
                     string[] vertices = auxline.Split(' ');
-                    int a = int.Parse(vertices[0]) - 1;
-                    int b = int.Parse(vertices[2]) - 1;
-                    int c = int.Parse(vertices[4]) - 1;
-
+                    int a, b, c;
+                    if (vertices[0].Contains("/"))
+                    {
+                        a = int.Parse(vertices[0].Split("/")[0]) - 1;
+                        b = int.Parse(vertices[1].Split("/")[0]) - 1;
+                        c = int.Parse(vertices[2].Split("/")[0]) - 1;
+                    }
+                    else
+                    {
+                        a = int.Parse(vertices[0]) - 1;
+                        b = int.Parse(vertices[1]) - 1;
+                        c = int.Parse(vertices[2]) - 1;
+                    }
                     Triangle tri1 = new Triangle((Vector3)Points[a],(Vector3)Points[b],(Vector3)Points[c]);
  
                     tri1.RGB = new Vector3(0.4f,0.4f,0.5f);                    
