@@ -1,6 +1,7 @@
 ﻿using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Interfaces;
 using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Scene;
 using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Structures;
+using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Tree;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -25,6 +26,8 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
         {
             var Triangles = reader.Read(sourcePath);
 
+            Octree tree = new Octree(Triangles);
+
             Bitmap newBitmap = new Bitmap(size, size,
                                           PixelFormat.Format32bppArgb);
             Graphics g = Graphics.FromImage(newBitmap);
@@ -48,14 +51,17 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
                     float y = GetCoord(rect.Top,
                         rect.Bottom, Scale, -Scale, j);
                     double t = 1.0E10;
-
+                    Console.WriteLine($"X:{i}");
+                    Console.WriteLine($"Y:{j}");
                     Vector3 v = new Vector3(x, y, 0)-camera.GetCameraPosition();
 
                     v=v.Norm();
 
-                    Triangle triangleHit = null;                    
+                    Triangle triangleHit = null;
 
-                    Hit(ref triangleHit,ref t, Triangles, new Vector3(x, y, 0));
+                    tree.FindTrianle(ref triangleHit, ref t, new Vector3(x, y, 0), camera.GetCameraPosition());
+
+                    //Hit(ref triangleHit,ref t, Triangles, new Vector3(x, y, 0),camera.GetCameraPosition());
 
                     Color color = Color.FromArgb(10, 20, 10);
 
@@ -117,12 +123,12 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
             return ((p - i1) / (i2 - i1)) * (w2 - w1) + w1;
         }
 
-        private void Hit(ref Triangle triangle,ref double t, ArrayList Triangles,Vector3 Ray)
+        public static void Hit(ref Triangle triangle,ref double t, ArrayList Triangles,Vector3 Ray,Vector3 camera)
         {
             for (int k = 0; k < (int)Triangles.Count; k++)
             {
                 Triangle triN = (Triangle)Triangles[k];
-                double taux = triN.GetInterSect(camera.GetCameraPosition(), Ray);
+                double taux = triN.GetInterSect(camera, Ray);
                 if (taux < 0) continue;
 
                 if (taux > 0 && taux < t)

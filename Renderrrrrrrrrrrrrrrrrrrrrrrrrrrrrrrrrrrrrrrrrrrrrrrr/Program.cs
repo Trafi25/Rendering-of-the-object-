@@ -10,7 +10,7 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
         static void Main(string[] args)
         {
             Render render = new Render(new ObjReader(),new Camera(Y:-100,Z:60),new Light(PosX:-250.0f,PosZ: 200.0f,DirX:180f,DirY:30f,DirZ:199.9f));
-            render.StartRender(@"c:\users\user\desktop\комп графика\testrender\cow.obj", @"c:\users\user\desktop\комп графика\final.png",800);
+            render.StartRender(@"c:\users\user\desktop\комп графика\testrender\cow.obj", @"c:\users\user\desktop\комп графика\final.png",200);
         }
     }
 }
