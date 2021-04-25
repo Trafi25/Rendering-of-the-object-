@@ -185,15 +185,15 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Tree
 
             private bool TriangleHitTheCube(Triangle triangle)
             {
-                bool CheckX = (triangle.a.X > Tops[0].X && triangle.a.X < Tops[6].X) && (triangle.b.X > Tops[0].X && triangle.b.X < Tops[6].X) && (triangle.c.X > Tops[0].X && triangle.c.X < Tops[6].X);
-                bool CheckY = (triangle.a.Y > Tops[0].Y && triangle.a.Y < Tops[6].Y) && (triangle.b.Y > Tops[0].Y && triangle.b.Y < Tops[6].Y) && (triangle.c.Y > Tops[0].Y && triangle.c.Y < Tops[6].Y);
-                bool CheckZ = (triangle.a.Z > Tops[0].Z && triangle.a.Z < Tops[6].Z) && (triangle.b.Z > Tops[0].Z && triangle.b.Z < Tops[6].Z) && (triangle.c.Z > Tops[0].Z && triangle.c.Z < Tops[6].Z);
+                bool CheckX = (triangle.a.X > Tops[0].X && triangle.a.X < Tops[6].X) || (triangle.b.X > Tops[0].X && triangle.b.X < Tops[6].X) || (triangle.c.X > Tops[0].X && triangle.c.X < Tops[6].X);
+                bool CheckY = (triangle.a.Y > Tops[0].Y && triangle.a.Y < Tops[6].Y) || (triangle.b.Y > Tops[0].Y && triangle.b.Y < Tops[6].Y) || (triangle.c.Y > Tops[0].Y && triangle.c.Y < Tops[6].Y);
+                bool CheckZ = (triangle.a.Z > Tops[0].Z && triangle.a.Z < Tops[6].Z) || (triangle.b.Z > Tops[0].Z && triangle.b.Z < Tops[6].Z) || (triangle.c.Z > Tops[0].Z && triangle.c.Z < Tops[6].Z);
 
                 return CheckX&&CheckY&&CheckZ;
             }
 
             public void FindTriangle(ref Triangle triangle, ref double t, Vector3 Ray, Vector3 camera)
-            {
+            {                
                 ArrayList temp = new ArrayList(EdgesTriangle);
                 Render.Hit(ref triangle,ref t,temp,Ray,camera);
 
@@ -204,6 +204,7 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Tree
 
                 triangle = null;
                 temp = new ArrayList(TrianglesInNode);
+                t = 1.0E10;
                 CheckTriangleInNode(ref triangle, ref t, temp, Ray, camera);
                 if(triangle != null )
                 {
@@ -217,7 +218,12 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Tree
 
                 foreach(var tempChild in Childes)
                 {
+                    t = 1.0E10;
                     tempChild.FindTriangle(ref triangle,ref t,Ray,camera);
+                    if (triangle != null)
+                    {
+                        return;
+                    }
                 }
             }
 
