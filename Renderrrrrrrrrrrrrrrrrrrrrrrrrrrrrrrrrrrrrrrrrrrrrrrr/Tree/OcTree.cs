@@ -198,7 +198,7 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Tree
 
                 for (int i = 0; i < 8; i++)
                     {
-                        if (Childes[i].TrianglesInNode.Count < 50)
+                        if (Childes[i].TrianglesInNode.Count < 200)
                         {
                             continue;
                         }
@@ -226,24 +226,7 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Tree
 
                 public void FindTriangle(ref Triangle triangle, ref double t, Vector3 Ray, Vector3 camera)
                 {
-                    if(TrianglesInNode.Count==0)
-                    {
-                        if (Childes == null || !Childes.Any())
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            foreach (var tempChild in Childes)
-                            {
-                                tempChild.FindTriangle(ref triangle, ref t, Ray, camera);
-                                if (triangle != null)
-                                {
-                                    return;
-                                }
-                            }
-                        }
-                    }
+                    
                     ArrayList temp = new ArrayList(EdgesTriangle);
                     Render.Hit(ref triangle, ref t, temp, Ray, camera);
 
