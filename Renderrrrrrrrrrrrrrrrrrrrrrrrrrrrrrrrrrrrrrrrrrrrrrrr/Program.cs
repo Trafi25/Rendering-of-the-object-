@@ -37,6 +37,11 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
                         case "--output":
                             {
                                 output = input[1];
+                                string[] temp = output.Split('.');
+                                if (temp[1] != "ppm" && temp[1] != "png")
+                                {
+                                    throw new FormatSupportedException("Формат ввода не поддерживется", temp[1]);
+                                }
                             }
                             break;
                         default:
