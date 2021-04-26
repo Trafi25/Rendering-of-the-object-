@@ -3,6 +3,7 @@ using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Exeptions;
 using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Readers;
 using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine;
 using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Scene;
+using Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.Writer;
 using System;
 
 namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
@@ -53,7 +54,7 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
                 Console.WriteLine(ex.ErrorDetails);
             }
                       
-            Render render = new Render(new ObjReader(), new Camera(Y: -100, Z: 60), new Light(PosX: -250.0f, PosZ: 200.0f, DirX: 180f, DirY: 30f, DirZ: 199.9f));
+            Render render = new Render(new ObjReader(), new Camera(Y: -100, Z: 60), new Light(PosX: -250.0f, PosZ: 200.0f, DirX: 180f, DirY: 30f, DirZ: 199.9f),new Ppm_writer());
             render.StartRender(source, output, 800);
 
         }

@@ -14,12 +14,14 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
         ICameraPositionProvider camera;
         IReader reader;
         Light light;
+        IImageWriter writer; 
 
-        public Render(IReader Reader,ICameraPositionProvider Camera,Light newlight)
+        public Render(IReader Reader,ICameraPositionProvider Camera,Light newlight,IImageWriter iwriter)
         {
             reader = Reader;
             camera = Camera;
             light = newlight;
+            writer = iwriter;
         }
 
         public void StartRender(string sourcePath, string outputPath,int size)
