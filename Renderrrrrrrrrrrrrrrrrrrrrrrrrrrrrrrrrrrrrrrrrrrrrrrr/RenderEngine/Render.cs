@@ -40,7 +40,11 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
             g.FillRectangle(new SolidBrush(clrBackground),
                             rect);
 
-            Graphics graphics = g;
+            ImageConcept.Image image = new ImageConcept.Image(sourcePath);
+            image.Header.Height = size;
+            image.Header.Width = size;
+            byte[] RGBPixel = new byte[size * size * 3];
+            //Graphics graphics = g;
 
             float Scale = 1.0f;
 
@@ -65,7 +69,10 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
 
                     //Hit(ref triangleHit,ref t, Triangles, new Vector3(x, y, 0),camera.GetCameraPosition());
 
-                    Color color = Color.FromArgb(10, 20, 10);
+                    //Color color = Color.FromArgb(10, 20, 10);
+                    byte R = 10;
+                    byte G = 20;
+                    byte B = 10;
 
                     if (triangleHit != null)
                     {
@@ -106,17 +113,25 @@ namespace Renderrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.RenderEngine
                         rgbG = Math.Max(rgbG, 0);
                         rgbB = Math.Max(rgbB, 0);
 
-                        color = Color.FromArgb((int)rgbR, (int)rgbG, (int)rgbB);
-                    }
+                        R = (byte)rgbR;
+                        G = (byte)rgbG;
+                        B = (byte)rgbB;
 
-                    Brush brs = new SolidBrush(color);
-                    graphics.FillRectangle(brs, i, j, 1, 1);
-                    brs.Dispose();
+                        //color = Color.FromArgb((int)rgbR, (int)rgbG, (int)rgbB);
+                    }
+                    RGBPixel[i * size + j * 3 - 3] = R;
+                    RGBPixel[i * size + j * 3 - 2] = G;
+                    RGBPixel[i * size + j * 3 - 1] = B;
+
+                    //Brush brs = new SolidBrush(color);
+                    //graphics.FillRectangle(brs, i, j, 1, 1);
+                    //brs.Dispose();
                 }
 
             }
-
-            newBitmap.Save(outputPath, ImageFormat.Png);
+            image.RGBPixel = RGBPixel;
+            writer.Write(outputPath,image);
+            //newBitmap.Save(outputPath, ImageFormat.Png);
         }
 
         private float GetCoord(float i1, float i2, float w1,
