@@ -16,6 +16,9 @@ To run the application, you need to write a line replacing the address of the so
 Render.exe --source=D:/cow.obj --output=D:/rendered.png
 
 ```
+### Example 
+
+![render cow](rendered.png)
 
 
 
